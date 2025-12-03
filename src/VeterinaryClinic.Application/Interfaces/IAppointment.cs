@@ -12,7 +12,7 @@ namespace VeterinaryClinic.Application.Interfaces
         Task<bool> DeleteAsync(int id);
         Task<bool> CancelAsync(int id);
 
-        Task<IEnumerable<AppointmentDto>> GetByPetIdAsync(int petId);
+        Task<IEnumerable<AppointmentDto>> GetByPetIdAsync(int petId); 
         Task<IEnumerable<AppointmentDto>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<IEnumerable<AppointmentDto>> GetByStatusAsync(string status);
     }

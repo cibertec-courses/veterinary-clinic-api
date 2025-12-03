@@ -82,7 +82,22 @@ namespace VeterinaryClinic.Application.Services
 
         public async Task<OwnerDto> UpdateAsync(int id, UpdateOwnerDto ownerDto)
         {
-            throw new NotImplementedException();
+            var owner = await _unitOfWork.Owners.GetByIdAsync(id);
+            if (owner == null)
+            {
+                throw new NotFoundException("Owner", id);
+            }
+
+            var existingOwner = await _unitOfWork.Owners.GetByEmailAsync(ownerDto.Email);
+            if (existingOwner != null && existingOwner.Id != id)
+            {
+                throw new DuplicateEntityException("Owner", "Email", ownerDto.Email);
+            }
+
+            _mapper.Map(ownerDto, owner);
+            var updatedOwner = await _unitOfWork.Owners.UpdateAsync(owner);
+            await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<OwnerDto>(updatedOwner);
         }
     }
 }
