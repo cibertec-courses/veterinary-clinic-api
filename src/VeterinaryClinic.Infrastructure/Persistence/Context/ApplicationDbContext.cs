@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using VeterinaryClinic.Domain.Entities;
 using VeterinaryClinic.Infrastructure.Persistence.Configurations;
 
-namespace VeterinaryClinic.Infrastructure.Persistence.Contexts
+namespace VeterinaryClinic.Infrastructure.Persistence.Context
 {
     public class ApplicationDbContext : DbContext
     {

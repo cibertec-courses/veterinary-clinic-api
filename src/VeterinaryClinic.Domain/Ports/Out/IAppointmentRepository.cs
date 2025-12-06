@@ -8,6 +8,6 @@ namespace VeterinaryClinic.Domain.Ports.Out
         Task<IEnumerable<Appointment>> GetByPetIdAsync(int petId);
         Task<IEnumerable<Appointment>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<IEnumerable<Appointment>> GetByStatusAsync(string status);
-        Task<Appointment> GetWithPetAndOwnerAsync(int id);
+        Task<Appointment?> GetWithPetAndOwnerAsync(int id);
     }
 }

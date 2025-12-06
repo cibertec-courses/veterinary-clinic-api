@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VeterinaryClinic.Domain.Ports.Out;
-using VeterinaryClinic.Infrastructure.Persistence.Contexts;
+using VeterinaryClinic.Infrastructure.Persistence.Context;
 
 namespace VeterinaryClinic.Infrastructure.Persistence.Repositories
 {
