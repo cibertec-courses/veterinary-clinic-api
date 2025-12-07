@@ -10,18 +10,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        var host = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-        var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "3306";
-        var database = Environment.GetEnvironmentVariable("DB_NAME") ?? "veterinary_db";
-        var user = Environment.GetEnvironmentVariable("DB_USER") ?? "root";
-        var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
+        var host = Environment.GetEnvironmentVariable("DB_SERVER");
+        var port = Environment.GetEnvironmentVariable("DB_PORT") ;
+        var database = Environment.GetEnvironmentVariable("DB_NAME");
+        var user = Environment.GetEnvironmentVariable("DB_USER");
+        var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
         var connectionString = $"Server={host};Port={port};Database={database};User={user};Password={password};";
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySql(
                 connectionString,
-                ServerVersion.AutoDetect(connectionString)
+                new MySqlServerVersion(new Version(8, 0, 0))
             )
         );
 
