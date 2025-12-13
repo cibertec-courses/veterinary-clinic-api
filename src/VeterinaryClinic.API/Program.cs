@@ -18,11 +18,15 @@ if (File.Exists(envPath))
 var builder = WebApplication.CreateBuilder(args);
 
 // Configurar CORS
+
+var allowOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+ ?? new [] { "http://localhost:5173" }; // Valor por defecto si no se encuentra en la configuración
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(allowOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
