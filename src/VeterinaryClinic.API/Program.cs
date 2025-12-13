@@ -1,5 +1,6 @@
 using DotNetEnv;
 using VeterinaryClinic.API;
+using VeterinaryClinic.API.Middleware;
 using VeterinaryClinic.Application;
 using VeterinaryClinic.Infrastructure;
 
@@ -35,7 +36,10 @@ builder.Services.AddCors(options =>
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers( options => 
+{
+    options.Filters.Add<ValidatorFilter>();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
