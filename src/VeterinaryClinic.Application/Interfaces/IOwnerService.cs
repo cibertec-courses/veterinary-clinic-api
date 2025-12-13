@@ -5,7 +5,7 @@ namespace VeterinaryClinic.Application.Interfaces
 {
     public interface IOwnerService
     {
-        Task<OwnerDto?> GetByIdAsync(int id);
+        Task<OwnerDto> GetByIdAsync(int id);
         Task<IEnumerable<OwnerDto?>> GetAllAsync();
         Task<OwnerDto> CreateAsync(CreateOwnerDto ownerDto);
         Task<OwnerDto> UpdateAsync(int id, UpdateOwnerDto ownerDto);

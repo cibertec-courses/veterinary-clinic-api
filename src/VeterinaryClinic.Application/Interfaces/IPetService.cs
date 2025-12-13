@@ -5,7 +5,7 @@ namespace VeterinaryClinic.Application.Interfaces
 {
     public interface IPetService
     {
-        Task<PetDto?> GetByIdAsync(int id);
+        Task<PetDto> GetByIdAsync(int id);
         Task<IEnumerable<PetDto>> GetAllAsync();
         Task<PetDto> CreateAsync(CreatePetDto petDto);
         Task<PetDto> UpdateAsync(int id, UpdatePetDto petDto);

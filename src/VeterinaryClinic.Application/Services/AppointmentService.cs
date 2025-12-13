@@ -18,10 +18,10 @@ public class AppointmentService : IAppointmentService
         _mapper = mapper;
     }
 
-    public async Task<AppointmentDto?> GetByIdAsync(int id)
+    public async Task<AppointmentDto> GetByIdAsync(int id)
     {
         var appointment = await _unitOfWork.Appointments.GetWithPetAndOwnerAsync(id);
-        return appointment == null ? null : _mapper.Map<AppointmentDto>(appointment);
+        return appointment == null ? throw new NotFoundException("Appointment", id) : _mapper.Map<AppointmentDto>(appointment);
     }
 
     public async Task<IEnumerable<AppointmentDto>> GetAllAsync()

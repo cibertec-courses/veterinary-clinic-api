@@ -5,7 +5,7 @@ namespace VeterinaryClinic.Application.Interfaces
 {
     public interface IAppointmentService
     {
-        Task<AppointmentDto?> GetByIdAsync(int id);
+        Task<AppointmentDto> GetByIdAsync(int id);
         Task<IEnumerable<AppointmentDto>> GetAllAsync();
         Task<AppointmentDto> CreateAsync(CreateAppointmentDto appointmentDto);
         Task<AppointmentDto> UpdateAsync(int id, UpdateAppointmentDto appointmentDto);

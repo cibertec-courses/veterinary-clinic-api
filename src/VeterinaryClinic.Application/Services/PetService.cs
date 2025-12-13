@@ -18,10 +18,14 @@ public class PetService : IPetService
         _mapper = mapper;
     }
 
-    public async Task<PetDto?> GetByIdAsync(int id)
+    public async Task<PetDto> GetByIdAsync(int id)
     {
         var pet = await _unitOfWork.Pets.GetWithOwnerAsync(id);
-        return pet == null ? null : _mapper.Map<PetDto>(pet);
+        if (pet == null)
+        {
+            throw new NotFoundException("Pet", id);
+        }
+        return _mapper.Map<PetDto>(pet);
     }
 
     public async Task<IEnumerable<PetDto>> GetAllAsync()

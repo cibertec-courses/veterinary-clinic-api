@@ -27,10 +27,7 @@ namespace VeterinaryClinic.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PetDto>> GetById(int id)
         {
-            var pet = await _petService.GetByIdAsync(id);
-            if (pet == null)
-                return NotFound(new { message = $"Pet with ID {id} not found." });
-
+            var pet = await _petService.GetByIdAsync(id);           
             return Ok(pet);
         }
 

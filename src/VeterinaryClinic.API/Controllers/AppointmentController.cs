@@ -31,11 +31,6 @@ namespace VeterinaryClinic.API.Controllers
         public async Task<ActionResult<AppointmentDto>> GetById(int id)
         {
             var appointment = await _appointmentService.GetByIdAsync(id);
-            if (appointment == null)
-            {
-                return NotFound(new {message = $"Appointment with ID {id} not found."});
-            }
-
             return Ok(appointment);
         }
 

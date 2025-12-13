@@ -26,10 +26,7 @@ public class OwnersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<OwnerDto>> GetById(int id)
     {
-        var owner = await _ownerService.GetByIdAsync(id);
-        if (owner == null)
-            return NotFound(new { message = $"Owner with ID {id} not found." });
-        
+        var owner = await _ownerService.GetByIdAsync(id);       
         return Ok(owner);
     }
 

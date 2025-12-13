@@ -68,10 +68,10 @@ namespace VeterinaryClinic.Application.Services
             return owner !=null ? null : _mapper.Map<OwnerDto>(owner);
         }
 
-        public async Task<OwnerDto?> GetByIdAsync(int id)
+        public async Task<OwnerDto> GetByIdAsync(int id)
         {
           var owner = await _unitOfWork.Owners.GetByIdAsync(id);
-            return owner !=null ? null : _mapper.Map<OwnerDto>(owner);
+            return owner !=null ? throw new NotFoundException("Owner", id) : _mapper.Map<OwnerDto>(owner);
         }
 
         public async Task<IEnumerable<OwnerDto>> SearchByNameAsync(string name)
