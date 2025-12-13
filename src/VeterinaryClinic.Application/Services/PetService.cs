@@ -4,6 +4,7 @@ using VeterinaryClinic.Application.Interfaces;
 using VeterinaryClinic.Domain.Entities;
 using VeterinaryClinic.Domain.Exceptions;
 using VeterinaryClinic.Domain.Ports.Out;
+using Microsoft.Extensions.Logging;
 
 namespace VeterinaryClinic.Application.Services;
 
@@ -11,11 +12,13 @@ public class PetService : IPetService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly ILogger<PetService> _logger;
 
-    public PetService(IUnitOfWork unitOfWork, IMapper mapper)
+    public PetService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<PetService> logger)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<PetDto> GetByIdAsync(int id)
@@ -23,22 +26,28 @@ public class PetService : IPetService
         var pet = await _unitOfWork.Pets.GetWithOwnerAsync(id);
         if (pet == null)
         {
+            _logger.LogWarning("Pet with ID {PetId} not found.", id);
             throw new NotFoundException("Pet", id);
         }
+        _logger.LogInformation("Pet {PetName} found.", pet.Name);
         return _mapper.Map<PetDto>(pet);
     }
 
     public async Task<IEnumerable<PetDto>> GetAllAsync()
     {
+        _logger.LogInformation("Retrieving all pets.");
         var pets = await _unitOfWork.Pets.GetAllAsync();
+        _logger.LogInformation("{PetCount} pets retrieved.", pets.Count());
         return _mapper.Map<IEnumerable<PetDto>>(pets);
     }
 
     public async Task<PetDto> CreateAsync(CreatePetDto dto)
     {
+        _logger.LogInformation("Creating a new pet with name {PetName} for {OwnerID}", dto.Name, dto.OwnerId);
         var ownerExists = await _unitOfWork.Owners.ExistsAsync(dto.OwnerId);
         if (!ownerExists)
         {
+            _logger.LogWarning("Owner with ID {OwnerID} not found. Cannot create pet.", dto.OwnerId);
             throw new NotFoundException("Owner", dto.OwnerId);
         }
 
@@ -55,6 +64,7 @@ public class PetService : IPetService
         await _unitOfWork.SaveChangesAsync();
 
         var petWithOwner = await _unitOfWork.Pets.GetWithOwnerAsync(createdPet.Id);
+        _logger.LogInformation("Pet {PetName} created successfully with ID {PetID}.", createdPet.Name, createdPet.Id);
         return _mapper.Map<PetDto>(petWithOwner!);
     }
 
