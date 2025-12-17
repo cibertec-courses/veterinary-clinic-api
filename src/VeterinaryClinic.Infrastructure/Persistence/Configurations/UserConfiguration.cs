@@ -40,6 +40,4 @@ namespace VeterinaryClinic.Infrastructure.Persistence.Configurations
             builder.HasIndex(u => u.Email).IsUnique();
         }
     }
-    {
-    }
 }
