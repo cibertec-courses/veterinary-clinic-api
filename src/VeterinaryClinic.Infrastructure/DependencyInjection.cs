@@ -15,10 +15,7 @@ public static class DependencyInjection
         var database = Environment.GetEnvironmentVariable("DB_NAME");
         var user = Environment.GetEnvironmentVariable("DB_USER");
         var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
-
-        var connectionString = $"Server={host};Port={port};Database={database};User={user};Password={password};";
-        // var connectionString = "Server=192.168.100.78;Port=3306;Database=veterinary_db;User=root;Password=mysql@2025;";
-        
+        var connectionString = $"Server={host};Port={port};Database={database};User={user};Password={password};";        
         Console.WriteLine($"Connection String: {connectionString}");
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySql(
@@ -30,6 +27,7 @@ public static class DependencyInjection
         services.AddScoped<IOwnerRepository, OwnerRepository>();
         services.AddScoped<IPetRepository, PetRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;

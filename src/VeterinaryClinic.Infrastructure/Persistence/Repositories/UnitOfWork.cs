@@ -12,16 +12,20 @@ namespace VeterinaryClinic.Infrastructure.Persistence.Repositories
         public IOwnerRepository Owners { get; }
         public IPetRepository Pets { get; }
         public IAppointmentRepository Appointments { get; }
+        public IUserRepository Users { get; }
 
         public UnitOfWork(ApplicationDbContext context,
                           IOwnerRepository ownerRepository,
                           IPetRepository petRepository,
-                          IAppointmentRepository appointmentRepository)
+                          IAppointmentRepository appointmentRepository,
+                          IUserRepository userRepository
+                          )
         {
             _context = context;
             Owners = ownerRepository;
             Pets = petRepository;
             Appointments = appointmentRepository;
+            Users = userRepository;
         }
 
         public async Task<int> SaveChangesAsync()

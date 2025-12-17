@@ -6,7 +6,8 @@ namespace VeterinaryClinic.Domain.Ports.Out
         IOwnerRepository Owners { get; }
         IPetRepository Pets { get; }
         IAppointmentRepository Appointments { get; }
-
+        IUserRepository Users { get; }
+        
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync();
         Task CommitTransactionAsync();

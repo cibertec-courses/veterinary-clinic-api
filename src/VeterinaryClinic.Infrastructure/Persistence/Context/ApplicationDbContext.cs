@@ -14,6 +14,7 @@ namespace VeterinaryClinic.Infrastructure.Persistence.Context
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace VeterinaryClinic.Infrastructure.Persistence.Context
             modelBuilder.ApplyConfiguration(new OwnerConfiguration());
             modelBuilder.ApplyConfiguration(new PetConfiguration());
             modelBuilder.ApplyConfiguration(new AppointmentConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }
