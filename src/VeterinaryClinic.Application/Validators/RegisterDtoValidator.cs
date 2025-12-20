@@ -6,7 +6,7 @@ namespace VeterinaryClinic.Application.Validators
 {
     public class RegisterDtoValidator : AbstractValidator<RegisterDto>
     {
-        private readonly string[]  _validRoles = new[] { "Admin", "Veterinariam", "Receptionist" };
+        private readonly string[]  _validRoles = new[] { "Admin", "Veterinarian", "Receptionist" };
 
         public RegisterDtoValidator()
         {

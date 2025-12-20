@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VeterinaryClinic.Application.DTOs.Owner;
 using VeterinaryClinic.Application.Interfaces;
@@ -7,6 +8,7 @@ namespace VeterinaryClinic.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class OwnersController : ControllerBase
 {
     private readonly IOwnerService _ownerService;

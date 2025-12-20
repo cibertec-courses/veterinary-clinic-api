@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VeterinaryClinic.Application.DTOs.Pet;
 using VeterinaryClinic.Application.Interfaces;
@@ -8,6 +9,7 @@ namespace VeterinaryClinic.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class PetsController: ControllerBase
     {
         private readonly IPetService _petService;

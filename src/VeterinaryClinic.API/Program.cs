@@ -2,6 +2,7 @@ using System.Text;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using VeterinaryClinic.API;
 using VeterinaryClinic.API.Middleware;
 using VeterinaryClinic.Application;
@@ -24,7 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configurar CORS
 
 var allowOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
- ?? new [] { "http://localhost:5173" }; // Valor por defecto si no se encuentra en la configuración
+ ?? new[] { "http://localhost:5173" }; // Valor por defecto si no se encuentra en la configuración
 
 builder.Services.AddCors(options =>
 {
@@ -45,11 +46,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer( options =>
+.AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true, 
+        ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
@@ -57,7 +58,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtAudience,
 
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
-        
+
     };
 }
 
@@ -68,12 +69,46 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
-builder.Services.AddControllers( options => 
+builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidatorFilter>();
 });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Veterinary Clininc API",
+        Version = "v1",
+        Description = "API for veterinary management"
+    });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Put the JWT token with format: {token}"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+        new string[]{}
+        
+        }
+    });
+});
 
 var app = builder.Build();
 
