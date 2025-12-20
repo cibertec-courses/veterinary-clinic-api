@@ -50,6 +50,7 @@ public class OwnersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin,Receptionist")]
     public async Task<ActionResult<OwnerDto>> Create([FromBody] CreateOwnerDto dto)
     {
         try
@@ -64,6 +65,7 @@ public class OwnersController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Receptionist")]
     public async Task<ActionResult<OwnerDto>> Update(int id, [FromBody] UpdateOwnerDto dto)
     {
         try
@@ -82,6 +84,8 @@ public class OwnersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
+
     public async Task<ActionResult> Delete(int id)
     {
         try

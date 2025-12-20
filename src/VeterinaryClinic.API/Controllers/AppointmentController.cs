@@ -79,6 +79,7 @@ namespace VeterinaryClinic.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Veterinarian,Recepcionist")]
         public async Task<ActionResult<AppointmentDto>> Create([FromBody] CreateAppointmentDto dto)
         {
             try
@@ -97,6 +98,7 @@ namespace VeterinaryClinic.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Veterinarian")]
         public async Task<ActionResult<AppointmentDto>> Update(int id, [FromBody] UpdateAppointmentDto dto)
         {
             try
@@ -132,6 +134,7 @@ namespace VeterinaryClinic.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             try
