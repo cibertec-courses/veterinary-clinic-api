@@ -1,0 +1,42 @@
+syntax = "proto3";
+package veterinary;
+option csharp_namespace = "VeterinaryClinic.Grpc.Protos";
+
+service PetGrpcService {
+  rpc GetPet (GetPetRequest) returns (PetResponse);
+
+  rpc GetAllPets (EmptyRequest) returns (PetListResponse);
+
+  rpc CreatePet (CreatePetRequest) returns (PetResponse);
+
+  rpc GetPetStream (EmptyRequest) returns (stream PetResponse);
+
+}
+
+message EmptyRequest {}
+
+message GetPetRequest {
+  int32 id = 1;
+}
+
+message CreatePetRequest {
+  string name       = 1;
+  string species    = 2;
+  string breed      = 3;
+  string birth_date = 4;
+  int32  owner_id   = 5;
+}
+
+message PetResponse {
+  int32  id         = 1;
+  string name       = 2;
+  string species    = 3;
+  string breed      = 4;
+  string birth_date = 5;
+  int32  owner_id   = 6;
+  string owner_name = 7;
+}
+
+message PetListResponse {
+  repeated PetResponse pets = 1;
+}

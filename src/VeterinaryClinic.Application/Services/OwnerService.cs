@@ -57,7 +57,6 @@ namespace VeterinaryClinic.Application.Services
 
             var result = await _unitOfWork.Owners.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
-
             return result;
             
         }
