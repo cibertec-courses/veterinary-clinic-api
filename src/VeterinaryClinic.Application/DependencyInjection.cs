@@ -16,6 +16,7 @@ namespace VeterinaryClinic.Application
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddValidatorsFromAssemblyContaining<CreatePetDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<CreateOwnerDtoValidator>();
