@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeterinaryClinic.Infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeterinaryClinic.Grpc", "src\VeterinaryClinic.Grpc\VeterinaryClinic.Grpc.csproj", "{CDEB7187-5FDD-4C8E-9877-B26217CD0C21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeterinaryClinic.GrpcClient", "src\VeterinaryClinic.GrpcClient\VeterinaryClinic.GrpcClient.csproj", "{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{CDEB7187-5FDD-4C8E-9877-B26217CD0C21}.Release|x64.Build.0 = Release|Any CPU
 		{CDEB7187-5FDD-4C8E-9877-B26217CD0C21}.Release|x86.ActiveCfg = Release|Any CPU
 		{CDEB7187-5FDD-4C8E-9877-B26217CD0C21}.Release|x86.Build.0 = Release|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Debug|x64.Build.0 = Debug|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Debug|x86.Build.0 = Debug|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Release|x64.ActiveCfg = Release|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Release|x64.Build.0 = Release|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Release|x86.ActiveCfg = Release|Any CPU
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +109,6 @@ Global
 		{F8B39420-2029-4E1D-8AEF-B5DCEAEF4030} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{265ADB7F-9E12-45B1-A617-D5D405C31BAF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{CDEB7187-5FDD-4C8E-9877-B26217CD0C21} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{1D5EFBDC-5CAF-47BD-9B05-058D448DA0F1} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

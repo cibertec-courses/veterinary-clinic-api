@@ -1,7 +1,9 @@
 using VeterinaryClinic.Infrastructure;
 using VeterinaryClinic.Application;
 using DotNetEnv;
-
+using VeterinaryClinic.Grpc.Protos;
+using VeterinaryClinic.Grpc.Services;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 if (!File.Exists(envPath))
@@ -15,8 +17,20 @@ if (File.Exists(envPath))
     Console.WriteLine($"Loaded .env from: {envPath}");
 }
 
+var grpcPort = Environment.GetEnvironmentVariable("GRPC_PORT") ?? "5199";
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(int.Parse(grpcPort), listenOption =>
+    {
+        listenOption.Protocols = HttpProtocols.Http2;
+    }
+    );
+});
+
 
 // Add services to the container.
 builder.Services.AddGrpc();
@@ -25,6 +39,8 @@ builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
 var app = builder.Build();
+
+app.MapGrpcService<PetGrpcServiceImpl>();
 
 // Configure the HTTP request pipeline.
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
