@@ -126,12 +126,8 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseCors("AllowFrontend");
 app.UseStaticFiles();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
