@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using VeterinaryClinic.API;
+using VeterinaryClinic.API.Hubs;
 using VeterinaryClinic.API.Middleware;
+using VeterinaryClinic.API.Services;
 using VeterinaryClinic.Application;
 using VeterinaryClinic.Infrastructure;
 
@@ -33,7 +35,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(allowOrigins)
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -64,8 +67,6 @@ builder.Services.AddAuthentication(options =>
 
 );
 
-
-
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
@@ -73,6 +74,12 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidatorFilter>();
 });
+
+
+builder.Services.AddSignalR();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -117,6 +124,7 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // Usar CORS antes de otros middlewares
 app.UseCors("AllowFrontend");
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
@@ -128,5 +136,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<NotificationHub>("/hubs/notifications");
 
 app.Run();

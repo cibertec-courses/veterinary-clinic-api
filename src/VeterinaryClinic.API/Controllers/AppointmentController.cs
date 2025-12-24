@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Threading.Tasks;
+using VeterinaryClinic.API.Services;
 using VeterinaryClinic.Application.DTOs.Appointment;
 using VeterinaryClinic.Application.Interfaces;
 using VeterinaryClinic.Domain.Exceptions;
@@ -16,10 +17,14 @@ namespace VeterinaryClinic.API.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;
+        private readonly INotificationService _notificationService;
 
-        public AppointmentController(IAppointmentService appointmentService)
+        public AppointmentController(
+            IAppointmentService appointmentService,
+            INotificationService notificationService)
         {
             _appointmentService = appointmentService;
+            _notificationService = notificationService;
         }
 
         [HttpGet]
@@ -85,6 +90,12 @@ namespace VeterinaryClinic.API.Controllers
             try
             {
                 var appointment = await _appointmentService.CreateAsync(dto);
+                await _notificationService.NotifyAppointmentCreated(
+                    appointment.Id,
+                    appointment.PetName,
+                    appointment.AppointmentDate
+                );
+
                 return CreatedAtAction(nameof(GetById), new { id = appointment.Id }, appointment);
             }
             catch (NotFoundException ex)
@@ -104,6 +115,13 @@ namespace VeterinaryClinic.API.Controllers
             try
             {
                 var appointment = await _appointmentService.UpdateAsync(id, dto);
+                
+                await _notificationService.NotifyAppointmentUpdated(
+                    appointment.Id,
+                    appointment.PetName,
+                    appointment.Status ?? "Actualizada"
+                );
+
                 return Ok(appointment);
             }
             catch (NotFoundException ex)
