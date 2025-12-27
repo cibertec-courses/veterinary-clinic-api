@@ -24,10 +24,10 @@ if (File.Exists(envPath))
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar CORS
-
-var allowOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
- ?? new[] { "http://localhost:5173" }; // Valor por defecto si no se encuentra en la configuración
+// Configurar CORS desde .env
+var corsOrigins = Environment.GetEnvironmentVariable("CORS_ALLOWED_ORIGINS")
+    ?? "http://localhost:5173";
+var allowOrigins = corsOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
 builder.Services.AddCors(options =>
 {
