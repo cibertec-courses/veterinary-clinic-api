@@ -23,7 +23,7 @@ namespace VeterinaryClinic.Infrastructure.Persistence.Context
                 }
             }
             
-            var host = Environment.GetEnvironmentVariable("BD_HOST") ;
+            var host = Environment.GetEnvironmentVariable("DB_HOST") ;
             var port = Environment.GetEnvironmentVariable("DB_PORT");
             var database = Environment.GetEnvironmentVariable("DB_NAME") ;
             var user = Environment.GetEnvironmentVariable("DB_USER") ;

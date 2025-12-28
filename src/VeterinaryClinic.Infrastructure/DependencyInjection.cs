@@ -10,7 +10,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        var host = Environment.GetEnvironmentVariable("BD_HOST");
+        var host = Environment.GetEnvironmentVariable("DB_HOST");
         var port = Environment.GetEnvironmentVariable("DB_PORT") ;
         var database = Environment.GetEnvironmentVariable("DB_NAME");
         var user = Environment.GetEnvironmentVariable("DB_USER");
